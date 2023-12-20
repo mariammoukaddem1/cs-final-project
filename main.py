@@ -13,10 +13,9 @@ def process_data(data, column='District', default_district='All'):
     average_docks = filtered_data["Total docks"].mean() if "Total docks" in filtered_data else 0
     return filtered_data, average_docks
 
-# Construct file paths relative to the current file's directory
-current_dir = os.path.dirname(__file__)
-boston_data_csv_path = os.path.join(current_dir, 'data', 'current_bluebikes_stations.csv')
-boston_data_excel_path = os.path.join(current_dir, 'data', 'boston_data.xlsx')
+# Assuming the data files are located directly in the root of your repository
+boston_data_csv_path = 'current_bluebikes_stations.csv'
+boston_data_excel_path = 'boston_data.xlsx'
 
 # Load data and use list comprehension to clean station names
 boston_data_csv = pd.read_csv(boston_data_csv_path, skiprows=[0], header=0, usecols=range(8))
