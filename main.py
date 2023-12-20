@@ -2,11 +2,9 @@ import streamlit as st
 import pandas as pd
 import pydeck as pdk
 import matplotlib.pyplot as plt
-import os
 
 # Set page configuration for wide layout and a title
 st.set_page_config(page_title="Boston Blue Bikes Data Explorer", layout="wide")
-
 
 # Function to process data with default parameters and multiple return values
 def process_data(data, column='District', default_district='All'):
@@ -14,12 +12,10 @@ def process_data(data, column='District', default_district='All'):
     average_docks = filtered_data["Total docks"].mean() if "Total docks" in filtered_data else 0
     return filtered_data, average_docks
 
-
-# Assuming the data files are located directly in the root of your repository
+# Load data files directly from the root of your repository
 boston_data_csv_path = 'current_bluebikes_stations.csv'
 boston_data_excel_path = 'boston_data.xlsx'
 
-# Load data and use list comprehension to clean station names
 boston_data_csv = pd.read_csv(boston_data_csv_path, skiprows=[0], header=0, usecols=range(8))
 boston_data_csv['Name'] = [name.strip() for name in boston_data_csv['Name']]
 boston_data_excel = pd.read_excel(boston_data_excel_path)
@@ -31,8 +27,9 @@ selected_page = st.sidebar.radio("Choose a page", ["Home", "Map Visualization", 
 # Home Page
 if selected_page == "Home":
     st.markdown("<h1 style='color: blue;'>Boston Blue Bikes Data Explorer</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='color: blue;'>Explore the usage patterns of Blue Bikes in Boston.</h3>",
-                unsafe_allow_html=True)
+    st.markdown("<h3 style='color: blue;'>Explore the usage patterns of Blue Bikes in Boston.</h3>", unsafe_allow_html=True)
+    image_path = 'images/Bluebikes.png'  # Adjust this path based on your repository structure
+    st.image(image_path, use_column_width=True)
 
 # Map Visualization Page
 elif selected_page == "Map Visualization":
@@ -70,8 +67,7 @@ elif selected_page == "Map Visualization":
 
 # Charts Page
 elif selected_page == "Charts":
-    # Deployment Year Distribution - Pie Chart
-    st.header("Deployment Year Distribution")
+    st.header("Charts")
     deployment_year_data = boston_data_excel['Deployment Year'].value_counts()
     fig, ax = plt.subplots()
     ax.pie(deployment_year_data, labels=deployment_year_data.index, autopct='%1.1f%%', startangle=90)
