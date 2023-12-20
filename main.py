@@ -7,11 +7,13 @@ import os
 # Set page configuration for wide layout and a title
 st.set_page_config(page_title="Boston Blue Bikes Data Explorer", layout="wide")
 
+
 # Function to process data with default parameters and multiple return values
 def process_data(data, column='District', default_district='All'):
     filtered_data = data[data[column] == default_district] if default_district != 'All' else data
     average_docks = filtered_data["Total docks"].mean() if "Total docks" in filtered_data else 0
     return filtered_data, average_docks
+
 
 # Assuming the data files are located directly in the root of your repository
 boston_data_csv_path = 'current_bluebikes_stations.csv'
@@ -29,8 +31,11 @@ selected_page = st.sidebar.radio("Choose a page", ["Home", "Map Visualization", 
 # Home Page
 if selected_page == "Home":
     st.markdown("<h1 style='color: blue;'>Boston Blue Bikes Data Explorer</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='color: blue;'>Explore the usage patterns of Blue Bikes in Boston.</h3>", unsafe_allow_html=True)
-    image_path = os.path.join(current_dir, 'images', 'Bluebikes.png')  # Assuming image is in an 'images' subdirectory
+    st.markdown("<h3 style='color: blue;'>Explore the usage patterns of Blue Bikes in Boston.</h3>",
+                unsafe_allow_html=True)
+
+    # Directly reference the image path from the root of your repository
+    image_path = 'images/Bluebikes.png'  # Adjust this path based on your repository structure
     st.image(image_path, use_column_width=True)
 
 # Map Visualization Page
