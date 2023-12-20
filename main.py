@@ -34,10 +34,6 @@ if selected_page == "Home":
     st.markdown("<h3 style='color: blue;'>Explore the usage patterns of Blue Bikes in Boston.</h3>",
                 unsafe_allow_html=True)
 
-    # Directly reference the image path from the root of your repository
-    image_path = 'images/Bluebikes.png'  # Adjust this path based on your repository structure
-    st.image(image_path, use_column_width=True)
-
 # Map Visualization Page
 elif selected_page == "Map Visualization":
     st.subheader("Map of Bike Stations")
