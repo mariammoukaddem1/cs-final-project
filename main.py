@@ -28,8 +28,7 @@ selected_page = st.sidebar.radio("Choose a page", ["Home", "Map Visualization", 
 if selected_page == "Home":
     st.markdown("<h1 style='color: blue;'>Boston Blue Bikes Data Explorer</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='color: blue;'>Explore the usage patterns of Blue Bikes in Boston.</h3>", unsafe_allow_html=True)
-    image_path = 'images/Bluebikes.png'  # Adjust this path based on your repository structure
-    st.image(image_path, use_column_width=True)
+    st.image('Bluebikes.png', use_column_width=True)
 
 # Map Visualization Page
 elif selected_page == "Map Visualization":
@@ -67,19 +66,17 @@ elif selected_page == "Map Visualization":
 
 # Charts Page
 elif selected_page == "Charts":
-    st.header("Charts")
+    st.header("Deployment Year Distribution")
     deployment_year_data = boston_data_excel['Deployment Year'].value_counts()
     fig, ax = plt.subplots()
     ax.pie(deployment_year_data, labels=deployment_year_data.index, autopct='%1.1f%%', startangle=90)
     ax.axis('equal')
     st.pyplot(fig)
 
-    # Number of Stations per District - Bar Chart
     st.header("Number of Stations per District")
     station_count_all_districts = boston_data_csv.groupby("District")["Number"].nunique()
     st.bar_chart(station_count_all_districts)
 
-    # Average Docks per Station per District - Line Chart
     st.header("Average Docks per Station per District")
     avg_docks_per_district = boston_data_csv.groupby("District")["Total docks"].mean()
     st.line_chart(avg_docks_per_district)
